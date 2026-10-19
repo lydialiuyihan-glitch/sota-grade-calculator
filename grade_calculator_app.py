@@ -328,7 +328,7 @@ subjects = {
 def clear_scores():
     """Clear all saved score inputs when the subject changes."""
     for key in list(st.session.state.keys()):
-        if key.startswith("score"):
+        if key.endswith("score"):
             del st.session_state[key]
 
 
@@ -349,28 +349,28 @@ if year in ["Year 1", "Year 2"]:
     if subject == "History + Geography":
         h1_score = st.text_input(
             "Enter your History Term 1 score:",
-            key="score_h1"
+            key="hi_score"
         )
         h2_score = st.text_input(
             "Enter your History Term 2 score:",
-            key="score_h2"
+            key="h2_score"
         )
         heoy_score = st.text_input(
             "Enter your History EOY score:",
-            key="score_heoy"
+            key="heoy_score"
         )
 
         g1_score = st.text_input(
             "Enter your Geography Term 1 score:",
-            key="score_g1"
+            key="g1_score"
         )
         g2_score = st.text_input(
             "Enter your Geography Term 2 score:",
-            key="score_g2"
+            key="g2_score"
         )
         geoy_score = st.text_input(
             "Enter your Geography EOY score:",
-            key="score_geoy"
+            key="geoy_score"
         )
         if st.button("Calculate"):
             parts = h1_score.split("/")

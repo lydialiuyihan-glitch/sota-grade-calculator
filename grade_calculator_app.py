@@ -278,11 +278,29 @@ footer {
 
 </style>
 """, unsafe_allow_html=True)
-st.title("Year 3 SOTA Grade Calculator")
-
-subject = st.selectbox(
-    "Which subject?",
-    [
+st.title("Year 1-3 SOTA Grade Calculator")
+year = st.selectbox(
+    "YEAR",
+    ["Year 1", "Year 2", "Year 3", "Year 4"]
+)
+subjects = {
+    "Year 1": [
+        "Math",
+        "Chinese",
+        "Co-ordinated Science",
+        "History + Geography",
+        "Literature",
+        "ELCT"
+    ],
+    "Year 2": [
+        "Math",
+        "Chinese",
+        "Co-ordinated Science",
+        "History + Geography",
+        "Literature",
+        "ELCT"
+    ],
+    "Year 3": [
         "Math",
         "Chinese",
         "Chemistry",
@@ -291,77 +309,186 @@ subject = st.selectbox(
         "Literature",
         "ELCT",
         "Geography",
-        "History"
-    ]
+        "History",
+    ],
+    "Year 4": [
+        "Math",
+        "Chinese",
+        "Chemistry",
+        "Physics",
+        "Biology",
+        "Literature",
+        "ELCT",
+        "Geography",
+        "History",
+    ],
+}
+subject = st.selectbox(
+    "Which subject?",
+    subjects[year]
 )
-term1 = st.text_input("Enter your Term 1 score:")
-term2 = st.text_input("Enter your Term 2 score:")
-term3 = st.text_input("Enter your Term 3 score:")
-if subject == "ELCT":
-    re_score = st.text_input("Enter your RE score:")
-term4 = st.text_input("Enter your EOY score:")
-if st.button("Calculate"):
-    if subject in ["Math", "Chinese", "Chemistry", "Physics", "Biology", "Geography", "History"]:
-        parts = term1.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage1 = obtained / total * 100
-        parts = term2.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage2 = obtained / total * 100
-        parts = term3.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage3 = obtained / total * 100
-        parts = term4.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage4 = obtained / total * 100
-        overall = (percentage1 * 0.15) + (percentage2 * 0.15) + \
-            (percentage3 * 0.15) + (percentage4 * 0.55)
-        st.success(f"Your overall is {overall:.2f}%")
-    elif subject == "Literature":
-        parts = term1.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage1 = obtained / total * 100
-        parts = term2.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage2 = obtained / total * 100
-        parts = term3.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage3 = obtained / total * 100
-        parts = term4.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage4 = obtained / total * 100
-        overall = (percentage1 * 0.15) + (percentage2 * 0.10) + \
-            (percentage3 * 0.15) + (percentage4 * 0.60)
-        st.success(f"Your overall is {overall:.2f}%")
-    elif subject == "ELCT":
-        parts = term1.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage1 = obtained / total * 100
-        parts = term2.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage2 = obtained / total * 100
-        parts = term3.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage3 = obtained / total * 100
-        parts = re_score.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage4 = obtained / total * 100
-        parts = term4.split("/")
-        obtained = float(parts[0])
-        total = float(parts[1])
-        percentage5 = obtained / total * 100
-        overall = (percentage1 * 0.15) + (percentage2 * 0.15) + \
-            (percentage3 * 0.15) + (percentage4 * 0.25) + (percentage5 * 0.30)
-        st.success(f"Your overall is {overall:.2f}%")
+h1_score = ""
+h2_score = ""
+heoy_score = ""
+
+g1_score = ""
+g2_score = ""
+geoy_score = ""
+if year in ["Year 1", "Year 2"]:
+    if subject == "History + Geography":
+        h1_score = st.text_input("Enter your History Term 1 score:")
+        h2_score = st.text_input("Enter your History Term 2 score:")
+        heoy_score = st.text_input("Enter your History EOY score:")
+
+        g1_score = st.text_input("Enter your Geography Term 1 score:")
+        g2_score = st.text_input("Enter your Geography Term 2 score:")
+        geoy_score = st.text_input("Enter your Geography EOY score:")
+        if st.button("Calculate"):
+            parts = h1_score.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage1 = obtained / total * 100
+            parts = h2_score.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage2 = obtained / total * 100
+            parts = heoy_score.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage3 = obtained / total * 100
+            parts = g1_score.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage4 = obtained / total * 100
+            parts = g2_score.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage5 = obtained / total * 100
+            parts = geoy_score.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage6 = obtained / total * 100
+            overall = (percentage1 * 0.10) + (percentage2 * 0.10) + (percentage3 * 0.30) + \
+                (percentage4 * 0.10) + (percentage5 * 0.10) + (percentage6 * 0.30)
+            st.success(f"Your overall is {overall:.2f}%")
+    else:
+        term1 = st.text_input("Enter your Term 1 score:")
+        term2 = st.text_input("Enter your Term 2 score:")
+        term3 = st.text_input("Enter your Term 3 score:")
+        term4 = st.text_input("Enter your EOY score:")
+        if st.button("Calculate"):
+            if subject in ["Math", "Co-ordinated Science", "Literature", "ELCT"]:
+                parts = term1.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage1 = obtained / total * 100
+                parts = term2.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage2 = obtained / total * 100
+                parts = term3.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage3 = obtained / total * 100
+                parts = term4.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage4 = obtained / total * 100
+                overall = (percentage1 * 0.15) + (percentage2 * 0.15) + \
+                    (percentage3 * 0.15) + (percentage4 * 0.55)
+                st.success(f"Your overall is {overall:.2f}%")
+            elif subject == ["Chinese"]:
+                parts = term1.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage1 = obtained / total * 100
+                parts = term2.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage2 = obtained / total * 100
+                parts = term3.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage3 = obtained / total * 100
+                parts = term4.split("/")
+                obtained = float(parts[0])
+                total = float(parts[1])
+                percentage4 = obtained / total * 100
+                overall = (percentage1 * 0.10) + (percentage2 * 0.15) + \
+                    (percentage3 * 0.15) + (percentage4 * 0.60)
+                st.success(f"Your overall is {overall:.2f}%")
+elif year == "Year 3":
+    term1 = st.text_input("Enter your Term 1 score:")
+    term2 = st.text_input("Enter your Term 2 score:")
+    term3 = st.text_input("Enter your Term 3 score:")
+
+    re_score = ""
+
+    if subject == "ELCT":
+        re_score = st.text_input("Enter your RE score:")
+    term4 = st.text_input("Enter your EOY score:")
+    if st.button("Calculate"):
+        if subject in ["Math", "Chinese", "Chemistry", "Physics", "Biology", "Geography", "History"]:
+            parts = term1.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage1 = obtained / total * 100
+            parts = term2.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage2 = obtained / total * 100
+            parts = term3.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage3 = obtained / total * 100
+            parts = term4.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage4 = obtained / total * 100
+            overall = (percentage1 * 0.15) + (percentage2 * 0.15) + \
+                (percentage3 * 0.15) + (percentage4 * 0.55)
+            st.success(f"Your overall is {overall:.2f}%")
+        elif subject == "Literature":
+            parts = term1.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage1 = obtained / total * 100
+            parts = term2.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage2 = obtained / total * 100
+            parts = term3.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage3 = obtained / total * 100
+            parts = term4.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage4 = obtained / total * 100
+            overall = (percentage1 * 0.15) + (percentage2 * 0.10) + \
+                (percentage3 * 0.15) + (percentage4 * 0.60)
+            st.success(f"Your overall is {overall:.2f}%")
+        elif subject == "ELCT":
+            parts = term1.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage1 = obtained / total * 100
+            parts = term2.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage2 = obtained / total * 100
+            parts = term3.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage3 = obtained / total * 100
+            parts = re_score.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage4 = obtained / total * 100
+            parts = term4.split("/")
+            obtained = float(parts[0])
+            total = float(parts[1])
+            percentage5 = obtained / total * 100
+            overall = (percentage1 * 0.15) + (percentage2 * 0.15) + \
+                (percentage3 * 0.15) + (percentage4 * 0.25) + (percentage5 * 0.30)
+            st.success(f"Your overall is {overall:.2f}%")

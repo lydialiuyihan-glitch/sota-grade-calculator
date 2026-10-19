@@ -1,0 +1,7 @@
+name = input("What is your name?")
+school = input("What is your school?")
+course = input("What course do you study")
+year = input("What year are you in?")
+print(f"Hi {name}!")
+print(f"You study {course} at {school}")
+print(f"you are currently in {year}")

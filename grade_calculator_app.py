@@ -323,9 +323,20 @@ subjects = {
         "History",
     ],
 }
+
+
+def clear_scores():
+    """Clear all saved score inputs when the subject changes."""
+    for key in list(st.session.state.keys()):
+        if key.startswith("score"):
+            del st.session_state[key]
+
+
 subject = st.selectbox(
     "Which subject?",
-    subjects[year]
+    subjects[year],
+    key="subject",
+    on_change=clear_scores
 )
 h1_score = ""
 h2_score = ""
@@ -336,13 +347,31 @@ g2_score = ""
 geoy_score = ""
 if year in ["Year 1", "Year 2"]:
     if subject == "History + Geography":
-        h1_score = st.text_input("Enter your History Term 1 score:")
-        h2_score = st.text_input("Enter your History Term 2 score:")
-        heoy_score = st.text_input("Enter your History EOY score:")
+        h1_score = st.text_input(
+            "Enter your History Term 1 score:",
+            key="score_h1"
+        )
+        h2_score = st.text_input(
+            "Enter your History Term 2 score:",
+            key="score_h2"
+        )
+        heoy_score = st.text_input(
+            "Enter your History EOY score:",
+            key="score_heoy"
+        )
 
-        g1_score = st.text_input("Enter your Geography Term 1 score:")
-        g2_score = st.text_input("Enter your Geography Term 2 score:")
-        geoy_score = st.text_input("Enter your Geography EOY score:")
+        g1_score = st.text_input(
+            "Enter your Geography Term 1 score:",
+            key="score_g1"
+        )
+        g2_score = st.text_input(
+            "Enter your Geography Term 2 score:",
+            key="score_g2"
+        )
+        geoy_score = st.text_input(
+            "Enter your Geography EOY score:",
+            key="score_geoy"
+        )
         if st.button("Calculate"):
             parts = h1_score.split("/")
             obtained = float(parts[0])
@@ -372,10 +401,18 @@ if year in ["Year 1", "Year 2"]:
                 (percentage4 * 0.10) + (percentage5 * 0.10) + (percentage6 * 0.30)
             st.success(f"Your overall is {overall:.2f}%")
     else:
-        term1 = st.text_input("Enter your Term 1 score:")
-        term2 = st.text_input("Enter your Term 2 score:")
-        term3 = st.text_input("Enter your Term 3 score:")
-        term4 = st.text_input("Enter your EOY score:")
+        term1 = st.text_input(
+            "Enter your Term 1 score:",
+            key="term1_score")
+        term2 = st.text_input(
+            "Enter your Term 2 score:",
+            key="term2_score")
+        term3 = st.text_input(
+            "Enter your Term 3 score:",
+            key="term3_score")
+        term4 = st.text_input(
+            "Enter your EOY score:",
+            key="term4_score")
         if st.button("Calculate"):
             if subject in ["Math", "Co-ordinated Science", "Literature", "ELCT"]:
                 parts = term1.split("/")
@@ -397,7 +434,7 @@ if year in ["Year 1", "Year 2"]:
                 overall = (percentage1 * 0.15) + (percentage2 * 0.15) + \
                     (percentage3 * 0.15) + (percentage4 * 0.55)
                 st.success(f"Your overall is {overall:.2f}%")
-            elif subject == ["Chinese"]:
+            elif subject == "Chinese":
                 parts = term1.split("/")
                 obtained = float(parts[0])
                 total = float(parts[1])
@@ -418,14 +455,22 @@ if year in ["Year 1", "Year 2"]:
                     (percentage3 * 0.15) + (percentage4 * 0.60)
                 st.success(f"Your overall is {overall:.2f}%")
 elif year == "Year 3":
-    term1 = st.text_input("Enter your Term 1 score:")
-    term2 = st.text_input("Enter your Term 2 score:")
-    term3 = st.text_input("Enter your Term 3 score:")
+    term1 = st.text_input(
+        "Enter your Term 1 score:",
+        key="term1_score")
+    term2 = st.text_input(
+        "Enter your Term 2 score:",
+        key="term2_score")
+    term3 = st.text_input(
+        "Enter your Term 3 score:",
+        key="term3_score")
 
     re_score = ""
 
     if subject == "ELCT":
-        re_score = st.text_input("Enter your RE score:")
+        re_score = st.text_input(
+            "Enter your RE score:",
+            key="re_score")
     term4 = st.text_input("Enter your EOY score:")
     if st.button("Calculate"):
         if subject in ["Math", "Chinese", "Chemistry", "Physics", "Biology", "Geography", "History"]:

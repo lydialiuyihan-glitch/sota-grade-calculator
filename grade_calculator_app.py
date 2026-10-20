@@ -327,7 +327,7 @@ subjects = {
 
 def clear_scores():
     """Clear all saved score inputs when the subject changes."""
-    for key in list(st.session.state.keys()):
+    for key in list(st.session_state.keys()):
         if key.endswith("score"):
             del st.session_state[key]
 

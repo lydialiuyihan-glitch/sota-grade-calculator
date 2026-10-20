@@ -324,12 +324,13 @@ subjects = {
     ],
 }
 
+if "reset_id" not in st.session_state:
+    st.session_state.reset_id = 0
+
 
 def clear_scores():
-    """Clear all saved score inputs when the subject changes."""
-    for key in list(st.session_state.keys()):
-        if key.endswith("score"):
-            del st.session_state[key]
+    """Reset all score boxes when the subject changes."""
+    st.session_state.reset_id += 1
 
 
 subject = st.selectbox(
@@ -349,28 +350,28 @@ if year in ["Year 1", "Year 2"]:
     if subject == "History + Geography":
         h1_score = st.text_input(
             "Enter your History Term 1 score:",
-            key="hi_score"
+            key=f"h1_score_{st.session_state.reset_id}"
         )
+
         h2_score = st.text_input(
             "Enter your History Term 2 score:",
-            key="h2_score"
-        )
+            key=f"h2_score_{st.session_state.reset_id}")
         heoy_score = st.text_input(
             "Enter your History EOY score:",
-            key="heoy_score"
+            key=f"heoy_score_{st.session_state.reset_id}"
         )
 
         g1_score = st.text_input(
             "Enter your Geography Term 1 score:",
-            key="g1_score"
+            key=f"g1_score_{st.session_state.reset_id}"
         )
         g2_score = st.text_input(
             "Enter your Geography Term 2 score:",
-            key="g2_score"
+            key=f"g2_score_{st.session_state.reset_id}"
         )
         geoy_score = st.text_input(
             "Enter your Geography EOY score:",
-            key="geoy_score"
+            key=f"h2_score_{st.session_state.reset_id}"
         )
         if st.button("Calculate"):
             parts = h1_score.split("/")
@@ -403,16 +404,16 @@ if year in ["Year 1", "Year 2"]:
     else:
         term1 = st.text_input(
             "Enter your Term 1 score:",
-            key="term1_score")
+            key=f"term1_score_{st.session_state.reset_id}")
         term2 = st.text_input(
             "Enter your Term 2 score:",
-            key="term2_score")
+            key=f"term2_score_{st.session_state.reset_id}")
         term3 = st.text_input(
             "Enter your Term 3 score:",
-            key="term3_score")
+            key=f"term3_score_{st.session_state.reset_id}")
         term4 = st.text_input(
             "Enter your EOY score:",
-            key="term4_score")
+            key=f"term4_score_{st.session_state.reset_id}")
         if st.button("Calculate"):
             if subject in ["Math", "Co-ordinated Science", "Literature", "ELCT"]:
                 parts = term1.split("/")
@@ -457,20 +458,20 @@ if year in ["Year 1", "Year 2"]:
 elif year == "Year 3":
     term1 = st.text_input(
         "Enter your Term 1 score:",
-        key="term1_score")
+        key=f"term1_score_{st.session_state.reset_id}")
     term2 = st.text_input(
         "Enter your Term 2 score:",
-        key="term2_score")
+        key=f"term2_score_{st.session_state.reset_id}")
     term3 = st.text_input(
         "Enter your Term 3 score:",
-        key="term3_score")
+        key=f"term3_score_{st.session_state.reset_id}")
 
     re_score = ""
 
     if subject == "ELCT":
         re_score = st.text_input(
             "Enter your RE score:",
-            key="re_score")
+            key=f"re_score_{st.session_state.reset_id}")
     term4 = st.text_input("Enter your EOY score:")
     if st.button("Calculate"):
         if subject in ["Math", "Chinese", "Chemistry", "Physics", "Biology", "Geography", "History"]:
